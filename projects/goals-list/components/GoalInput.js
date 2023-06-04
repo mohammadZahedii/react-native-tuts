@@ -26,7 +26,7 @@ const GoalInput = ({ onAddItem, visibility, onCloseModal }) => {
       <View style={styles.inputContainer}>
         <Image
           style={styles.imageStyle}
-          source={require("../assets/goal.png")}
+          source={require("../../../assets/goal.png")}
         />
         <TextInput
           style={styles.textInput}
