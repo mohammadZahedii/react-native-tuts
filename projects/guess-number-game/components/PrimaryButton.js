@@ -1,5 +1,6 @@
 import { Text, View, Pressable, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
+import { colors } from "../utils";
 
 const PrimaryButton = ({ children, handlePress }) => {
   const handlePressedOnButton = () => {
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   buttonInnerContainer: {
     paddingVertical: 8,
     paddingHorizontal: 16,
-    backgroundColor: "#72063c",
+    backgroundColor: colors.primary500,
     elevation: 2,
   },
   pressed: {

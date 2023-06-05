@@ -4,11 +4,32 @@ import {
   ImageBackground,
   TouchableWithoutFeedback,
   Keyboard,
+  SafeAreaView,
 } from "react-native";
-import StartGameScreen from "./screens/StartGameScreen";
+import { useState } from "react";
+
 import { LinearGradient } from "expo-linear-gradient";
 
+import GameScreen from "./screens/GameScreen";
+import StartGameScreen from "./screens/StartGameScreen";
+import { colors } from "./utils";
 const GuessNumberGame = () => {
+  const [pickScreenNumber, setPickScreenNumber] = useState("");
+
+  let screen = (
+    <StartGameScreen
+      handlePickScreenNumber={(step) => setPickScreenNumber(step)}
+    />
+  );
+
+  if (pickScreenNumber) {
+    screen = (
+      <GameScreen
+        userNumber={pickScreenNumber}
+        handleBack={() => setPickScreenNumber(null)}
+      />
+    );
+  }
   return (
     // <View style={styles.appContainer}>
     //   <StartGameScreen />
@@ -16,7 +37,7 @@ const GuessNumberGame = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <LinearGradient
         style={styles.appContainer}
-        colors={["#4e0329", "#ddb52f"]}
+        colors={[colors.primary700, colors.accent500]}
       >
         <ImageBackground
           style={styles.appContainer}
@@ -24,7 +45,7 @@ const GuessNumberGame = () => {
           resizeMode="cover"
           imageStyle={styles.backgroundImageStyle}
         >
-          <StartGameScreen />
+          <SafeAreaView style={styles.appContainer}>{screen}</SafeAreaView>
         </ImageBackground>
       </LinearGradient>
     </TouchableWithoutFeedback>
@@ -35,7 +56,6 @@ export default GuessNumberGame;
 
 const styles = StyleSheet.create({
   appContainer: {
-    // backgroundColor: "#ddb52f",
     flex: 1,
   },
   backgroundImageStyle: {
