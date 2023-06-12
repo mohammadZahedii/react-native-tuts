@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
-import { colors } from "../utils";
+import { colors } from "../../utils";
 
 const Title = ({ children }) => {
   return <Text style={styles.tile}>{children}</Text>;
@@ -9,7 +9,8 @@ const Title = ({ children }) => {
 const styles = StyleSheet.create({
   tile: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "open-sans-bold",
+    // fontWeight: "bold",
     color: "white",
     textAlign: "center",
     borderWidth: 2,

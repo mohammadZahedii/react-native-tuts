@@ -1,5 +1,5 @@
 import { Text, StyleSheet } from "react-native";
-import { colors } from "../utils";
+import { colors } from "../../utils";
 import PropTypes from "prop-types";
 
 const NumberContainer = ({ children }) => {

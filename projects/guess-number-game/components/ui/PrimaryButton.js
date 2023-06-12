@@ -1,6 +1,6 @@
 import { Text, View, Pressable, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
-import { colors } from "../utils";
+import { colors } from "../../utils";
 
 const PrimaryButton = ({ children, handlePress }) => {
   const handlePressedOnButton = () => {
@@ -24,7 +24,6 @@ const PrimaryButton = ({ children, handlePress }) => {
 };
 
 PrimaryButton.propTypes = {
-  children: PropTypes.string.isRequired,
   handlePress: PropTypes.func.isRequired,
 };
 
@@ -45,6 +44,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "white",
+    fontFamily: "open-sans",
   },
 });
 
