@@ -1,4 +1,12 @@
-import { View, TextInput, StyleSheet, Alert, Text } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Alert,
+  Text,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { colors } from "../utils";
@@ -39,33 +47,37 @@ const StartGameScreen = ({ handlePickScreenNumber }) => {
     handlePickScreenNumber(choosenValue);
   };
   return (
-    <View style={styles.rootScreen}>
-      <Title>Guess My Number</Title>
-      <Card>
-        <InstructionTitle>Enter a Number</InstructionTitle>
-        <TextInput
-          style={styles.numberInput}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="number-pad"
-          maxLength={2}
-          value={enteredText}
-          onChangeText={inputValueHandler}
-        />
-        <View style={styles.buttonsContainer}>
-          <View style={styles.buttonContainer}>
-            <PrimaryButton handlePress={resetInputValueHandler}>
-              Reset
-            </PrimaryButton>
-          </View>
-          <View style={styles.buttonContainer}>
-            <PrimaryButton handlePress={confirmInputValueHandler}>
-              Confirm
-            </PrimaryButton>
-          </View>
+    <ScrollView style={{ flex: 1 }} alwaysBounceVertical={false}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+        <View style={styles.rootScreen}>
+          <Title>Guess My Number</Title>
+          <Card>
+            <InstructionTitle>Enter a Number</InstructionTitle>
+            <TextInput
+              style={styles.numberInput}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="number-pad"
+              maxLength={2}
+              value={enteredText}
+              onChangeText={inputValueHandler}
+            />
+            <View style={styles.buttonsContainer}>
+              <View style={styles.buttonContainer}>
+                <PrimaryButton handlePress={resetInputValueHandler}>
+                  Reset
+                </PrimaryButton>
+              </View>
+              <View style={styles.buttonContainer}>
+                <PrimaryButton handlePress={confirmInputValueHandler}>
+                  Confirm
+                </PrimaryButton>
+              </View>
+            </View>
+          </Card>
         </View>
-      </Card>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 

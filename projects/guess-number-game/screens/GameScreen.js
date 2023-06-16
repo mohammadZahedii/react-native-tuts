@@ -1,4 +1,12 @@
-import { View, StyleSheet, Button, Alert, FlatList } from "react-native";
+import * as React from "react";
+import {
+  View,
+  StyleSheet,
+  Button,
+  Alert,
+  FlatList,
+  useWindowDimensions,
+} from "react-native";
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import PropTypes from "prop-types";
@@ -64,11 +72,9 @@ const GameScreen = ({ userNumber, handleBack, onGameOver }) => {
     maxBoundary = 100;
   }, []);
 
-  const guessRoundsListItemsLength = guessRounds.length;
-  return (
-    <View style={styles.container}>
-      <Button title="back" onPress={handleBack} />
-      <Title>Opponents Guess</Title>
+  const { width } = useWindowDimensions();
+  let currentView = (
+    <React.Fragment>
       <NumberContainer>{"" + currentGuess}</NumberContainer>
       <Card>
         <InstructionTitle>Higher or lower?</InstructionTitle>
@@ -85,6 +91,33 @@ const GameScreen = ({ userNumber, handleBack, onGameOver }) => {
           </View>
         </View>
       </Card>
+    </React.Fragment>
+  );
+
+  // change current component width different breakpoint
+  if (width > 500) {
+    currentView = (
+      <View style={styles.landscapeView}>
+        <View style={styles.button}>
+          <PrimaryButton handlePress={nextGuessHandler.bind(this, "lower")}>
+            <Ionicons name="md-remove" size={24} color={"white"} />
+          </PrimaryButton>
+        </View>
+        <NumberContainer>{"" + currentGuess}</NumberContainer>
+        <View style={styles.button}>
+          <PrimaryButton handlePress={nextGuessHandler.bind(this, "greater")}>
+            <Ionicons name="md-add" size={24} color={"white"} />
+          </PrimaryButton>
+        </View>
+      </View>
+    );
+  }
+
+  const guessRoundsListItemsLength = guessRounds.length;
+  return (
+    <View style={styles.container}>
+      <Title>Opponents Guess</Title>
+      {currentView}
       <View style={styles.guessItemsContainer}>
         <FlatList
           data={guessRounds}
@@ -104,10 +137,16 @@ const GameScreen = ({ userNumber, handleBack, onGameOver }) => {
 };
 
 const styles = StyleSheet.create({
+  landscapeView: {
+    flexDirection: "row",
+    gap: 20,
+    alignItems: "center",
+  },
   container: {
     flex: 1,
-    gap: 20,
+    gap: 30,
     padding: 30,
+    alignItems: "center",
   },
   buttons: {
     flexDirection: "row",
@@ -120,7 +159,7 @@ const styles = StyleSheet.create({
   },
   guessItemsContainer: {
     flex: 1,
-    padding: 20,
+    padding: 10,
   },
 });
 

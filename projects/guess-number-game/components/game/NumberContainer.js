@@ -12,12 +12,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textAlign: "center",
+    justifyContent: "center",
     borderWidth: 4,
     borderColor: colors.accent500,
     color: colors.accent500,
     padding: 24,
     borderRadius: 8,
-    width: "80%",
+    // width: "",
+    width: "100%",
+    maxWidth: 120,
   },
 });
 
