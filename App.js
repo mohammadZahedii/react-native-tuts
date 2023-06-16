@@ -1,6 +1,7 @@
 import * as React from "react";
 import GoalsList from "./projects/goals-list";
 import GuessNumberGame from "./projects/guess-number-game";
+import MealsApp from "./projects/meals-app";
 import * as ScreenOrientation from "expo-screen-orientation";
 
 export default function App() {
@@ -17,5 +18,5 @@ export default function App() {
     };
   }, []);
 
-  return <GuessNumberGame />;
+  return <MealsApp />;
 }
