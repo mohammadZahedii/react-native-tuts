@@ -1,21 +1,21 @@
 import { FlatList, Text } from "react-native";
 import { CATEGORIES } from "../data/dummy-data";
 import CategoryGridTitle from "../components/ui/CategoryGridTitle";
-import { StatusBar } from "expo-status-bar";
 
-const renderCategoryItem = (renderData) => {
-  return (
-    <>
-      <StatusBar style="light" />
+export const CategoriesScreen = ({ navigation }) => {
+  //render item component
+  const renderCategoryItem = (renderData) => {
+    const handleNavigate = () => {
+      navigation.navigate("MealsItems", { categoryId: renderData.item.id });
+    };
+    return (
       <CategoryGridTitle
         title={renderData.item.title}
         color={renderData.item.color}
+        handlePress={handleNavigate}
       />
-    </>
-  );
-};
-
-export const CategoriesScreen = () => {
+    );
+  };
   return (
     <FlatList
       data={CATEGORIES}
