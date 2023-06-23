@@ -1,8 +1,7 @@
 import * as React from "react";
-import GoalsList from "./projects/goals-list";
-import GuessNumberGame from "./projects/guess-number-game";
-import MealsApp from "./projects/meals-app";
 import * as ScreenOrientation from "expo-screen-orientation";
+import DrawerApp from "./projects/drawer-app";
+import MealsApp from "./projects/meals-app";
 
 export default function App() {
   const checkOrientation = async () => {
