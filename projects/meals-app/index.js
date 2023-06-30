@@ -1,16 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
-import CategoriesScreen from "./screens/CategoriesScreen";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import MealsScreen from "./screens/MealsScreen";
-import MealDetailsScreen from "./screens/MealDetailsScreen";
-import FavoritesScreen from "./screens/FavoritesScreen";
-import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet, Text, View } from "react-native"
+import CategoriesScreen from "./screens/CategoriesScreen"
+import { StatusBar } from "expo-status-bar"
+import { NavigationContainer } from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { createDrawerNavigator } from "@react-navigation/drawer"
+import MealsScreen from "./screens/MealsScreen"
+import MealDetailsScreen from "./screens/MealDetailsScreen"
+import FavoritesScreen from "./screens/FavoritesScreen"
+import { Ionicons } from "@expo/vector-icons"
+import FavoriteContextProvider from "./store/context"
+import { Provider } from "react-redux"
+import store from "./store/redex"
 
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator()
+const Drawer = createDrawerNavigator()
 
 const DrawerNavigator = () => {
   return (
@@ -52,51 +55,55 @@ const DrawerNavigator = () => {
         }}
       />
     </Drawer.Navigator>
-  );
-};
+  )
+}
 
 const MealsApp = (props) => {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: "#351401" },
-            headerTintColor: "white",
-            contentStyle: { backgroundColor: "#3f2f25" },
-          }}
-        >
-          {/* first screen that we have nested route */}
-          <Stack.Screen
-            name="Drawer"
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
-            }}
-          />
-          {/* first screen that we have nested route */}
-          <Stack.Screen
-            name="MealsItems"
-            component={MealsScreen}
-            // options={({ route, navigation }) => {
-            //   const catId = route.params.categoryId;
-            //   return { title: catId };
-            // }}
-          />
-          <Stack.Screen
-            name="MealDetails"
-            component={MealDetailsScreen}
-            options={{ title: "About" }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <FavoriteContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerStyle: { backgroundColor: "#351401" },
+                headerTintColor: "white",
+                contentStyle: { backgroundColor: "#3f2f25" },
+              }}
+            >
+              {/* first screen that we have nested route */}
+              <Stack.Screen
+                name="Drawer"
+                component={DrawerNavigator}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              {/* first screen that we have nested route */}
+              <Stack.Screen
+                name="MealsItems"
+                component={MealsScreen}
+                // options={({ route, navigation }) => {
+                //   const catId = route.params.categoryId;
+                //   return { title: catId };
+                // }}
+              />
+              <Stack.Screen
+                name="MealDetails"
+                component={MealDetailsScreen}
+                options={{ title: "About" }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </FavoriteContextProvider>
+      </Provider>
     </>
-  );
-};
+  )
+}
 
-export default MealsApp;
+export default MealsApp
 
 const styles = StyleSheet.create({
   rootContainer: {},
-});
+})

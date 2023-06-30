@@ -1,39 +1,42 @@
-import { useLayoutEffect, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  Button,
-} from "react-native";
-import { MEALS } from "../data/dummy-data";
-import Subtitle from "../components/resuable/Subtitle";
-import MealDetails from "../components/resuable/MealDetail";
-import List from "../components/resuable/List";
-import IconButton from "../components/resuable/IconButton";
+import { useEffect } from "react"
+import { Text, View, StyleSheet, Image, ScrollView } from "react-native"
+import { MEALS } from "../data/dummy-data"
+import Subtitle from "../components/resuable/Subtitle"
+import MealDetails from "../components/resuable/MealDetail"
+import List from "../components/resuable/List"
+import IconButton from "../components/resuable/IconButton"
+import { useFavoriteContext } from "../store/context"
+import { useDispatch, useSelector } from "react-redux"
+import { actionManageFavorites } from "../store/redex/slices/favorites"
 
 const MealDetailsScreen = ({ route, navigation }) => {
-  const targetMealId = route.params.mealId;
-  const targetMeal = MEALS.find((mealItem) => mealItem.id === targetMealId);
+  const dispatch = useDispatch()
+  const favoriteIds = useSelector((state) => state.favorites.ids)
+
+  // const { ids, manageFavorites } = useFavoriteContext()
+  const targetMealId = route.params.mealId
+  const targetMeal = MEALS.find((mealItem) => mealItem.id === targetMealId)
+
+  const isFavoriteMeal = favoriteIds.indexOf(targetMealId) >= 0
 
   const addToFavoriteHandler = () => {
-    console.log("PRESSED!");
-  };
+    // manageFavorites(targetMealId)
+    dispatch(actionManageFavorites(targetMealId))
+  }
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
           <IconButton
-            name={"star"}
+            name={isFavoriteMeal ? "star" : "star-outline"}
             color={"white"}
             handlePress={addToFavoriteHandler}
           />
-        );
+        )
       },
-    });
-  }, []);
+    })
+  }, [navigation, isFavoriteMeal, addToFavoriteHandler])
 
   return (
     <ScrollView style={styles.rootScroll}>
@@ -57,8 +60,8 @@ const MealDetailsScreen = ({ route, navigation }) => {
         </View>
       </View>
     </ScrollView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   rootScroll: {
@@ -83,6 +86,6 @@ const styles = StyleSheet.create({
   mealContainer: {
     width: "80%",
   },
-});
+})
 
-export default MealDetailsScreen;
+export default MealDetailsScreen

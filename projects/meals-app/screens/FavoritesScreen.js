@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { MEALS } from "../data/dummy-data"
+import { useSelector } from "react-redux"
+import MealsList from "../components/ui/MealsList"
 
 const FavoritesScreen = () => {
-  return (
-    <View>
-      <Text>FavoritesScreen</Text>
-    </View>
-  );
-};
+  const favoriteIds = useSelector((state) => state.favorites.ids)
 
-export default FavoritesScreen;
+  const selectedFavorites = MEALS.filter((mealItem) =>
+    favoriteIds.includes(mealItem.id)
+  )
+  return <MealsList items={selectedFavorites} />
+}
 
-const styles = StyleSheet.create({});
+export default FavoritesScreen
